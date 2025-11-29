@@ -59,6 +59,7 @@ const FilterSidebar = () => {
             <label>Mínimo</label>
             <input
               type="number"
+              min="0"
               value={precioMin}
               onChange={(e) => setPrecioMin(e.target.value)}
               className="price-input"
@@ -69,6 +70,7 @@ const FilterSidebar = () => {
             <label>Máximo</label>
             <input
               type="number"
+              min="0"
               value={precioMax}
               onChange={(e) => setPrecioMax(e.target.value)}
               className="price-input"
