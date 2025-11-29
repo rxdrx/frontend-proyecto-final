@@ -27,7 +27,7 @@ const MainLayout = ({ children }) => {
                 Iniciar Sesión
               </Link>
               <button 
-                onClick={() => navigate('/cart')}
+                //onClick={() => navigate('/cart')}
                 className="cart-button"
               >
                 <svg className="cart-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -11,6 +11,20 @@ const HomePage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const productosMock = [
+      { id_producto: 1, nombre: "Nike Air Max 270", marca: "Nike", precio: 25000, url_imagen: "https://via.placeholder.com/300x300?text=Nike+Air+Max" },
+      { id_producto: 2, nombre: "Adidas Ultraboost", marca: "Adidas", precio: 28000, url_imagen: "https://via.placeholder.com/300x300?text=Adidas+Ultraboost" },
+      { id_producto: 3, nombre: "Puma RS-X", marca: "Puma", precio: 18000, url_imagen: "https://via.placeholder.com/300x300?text=Puma+RS-X" },
+      { id_producto: 4, nombre: "Reebok Classic", marca: "Reebok", precio: 15000, url_imagen: "https://via.placeholder.com/300x300?text=Reebok+Classic" },
+      { id_producto: 5, nombre: "New Balance 574", marca: "New Balance", precio: 22000, url_imagen: "https://via.placeholder.com/300x300?text=New+Balance" },
+      { id_producto: 6, nombre: "Converse Chuck Taylor", marca: "Converse", precio: 12000, url_imagen: "https://via.placeholder.com/300x300?text=Converse" },
+    ];
+
+    setTimeout(() => {
+      setProductos(productosMock);
+      setLoading(false);
+    }, 500);
+    /*
     const fetchProductos = async () => {
       try {
         setLoading(true);
@@ -25,6 +39,7 @@ const HomePage = () => {
     };
 
     fetchProductos();
+    */
   }, []);
 
   if (loading) {
@@ -80,11 +95,8 @@ const HomePage = () => {
                   <span className="products-count">({productos.length})</span>
                 </h2>
                 <select className="sort-select">
-                  <option>Más Relevantes</option>
                   <option>Menor Precio</option>
                   <option>Mayor Precio</option>
-                  <option>Más Nuevos</option>
-                  <option>Mejor Valorados</option>
                 </select>
               </div>
 
