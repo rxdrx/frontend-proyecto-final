@@ -8,7 +8,7 @@ const ProductCard = ({ producto }) => {
   return (
     <div 
       className="product-card"
-      //onClick={() => navigate(`/product/${producto.id_producto}`)}
+      onClick={() => navigate(`/product/${producto.id_producto}`)}
     >
       <div className="product-image-container">
         <img
@@ -38,9 +38,9 @@ const ProductCard = ({ producto }) => {
             </p>
           </div>
           <button
-            //onClick={(e) => {
-              //e.stopPropagation();
-            //}}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
             className="add-to-cart-button"
           >
             Agregar
