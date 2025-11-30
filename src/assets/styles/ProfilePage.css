@@ -1,0 +1,345 @@
+.profile-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f3f4f6;
+}
+
+.profile-sidebar {
+  width: 240px;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.profile-menu button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+
+.profile-menu button.active,
+.profile-menu button:hover {
+  background: #1e40af;
+}
+
+.profile-logout {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: auto;
+  transition: background-color 0.2s;
+}
+
+.profile-logout:hover {
+  background-color: #dc2626;
+}
+
+.profile-main-3col {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  gap: 2rem;
+  width: 100%;
+  background: white;
+  border-radius: 0 1rem 1rem 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  min-height: 100vh;
+  align-items: stretch;
+  padding: 0;
+}
+
+.profile-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.profile-col-left {
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3rem 1rem 3rem 2rem;
+  height: 100%;
+}
+
+.profile-avatar-large {
+  width: 90px;
+  height: 90px;
+  background: #1e40af;
+  color: white;
+  border-radius: 50%;
+  font-size: 2.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  margin-top: 0;
+}
+
+.profile-brief {
+  font-size: 1rem;
+  color: #374151;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.profile-brief-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-brief-email {
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+}
+
+.profile-brief-date {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.profile-col-center {
+  align-items: flex-start;
+  width: 100%;
+  padding: 3rem 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profile-section {
+  width: 100%;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profile-card {
+  background: #f9fafb;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-row:last-child {
+  border-bottom: none;
+}
+
+.profile-label {
+  font-weight: 600;
+  color: #2563eb;
+  font-size: 1rem;
+}
+
+.profile-value {
+  color: #374151;
+  font-size: 1rem;
+}
+
+.edit-profile-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background-color 0.2s;
+}
+
+.edit-profile-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.profile-change-form {
+  background: #f9fafb;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 2rem;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-change-form h2 {
+  color: #2563eb;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.profile-change-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-change-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-change-form label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.profile-change-form input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.profile-change-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.change-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background-color 0.2s;
+}
+
+.change-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.profile-col-right {
+  align-items: flex-start;
+  padding: 3rem 2rem 3rem 1rem;
+  height: 100%;
+  display: flex;
+}
+
+.profile-stats-card {
+  background: #f9fafb;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 2rem;
+  width: 100%;
+  min-width: 220px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.profile-stats-card h2 {
+  color: #2563eb;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.profile-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  color: #374151;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.profile-stat:last-child {
+  border-bottom: none;
+}
+
+.profile-orders {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.profile-orders th, .profile-orders td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.profile-orders th {
+  background: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+}
+
+.profile-orders td {
+  color: #111827;
+}
+
+/* Mejor estilo para el título de datos de usuario */
+.profile-section h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+  background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
