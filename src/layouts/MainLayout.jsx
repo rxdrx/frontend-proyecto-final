@@ -27,7 +27,7 @@ const MainLayout = ({ children }) => {
                 Iniciar Sesión
               </Link>
               <button 
-                //onClick={() => navigate('/cart')}
+                onClick={() => navigate('/cart')}
                 className="cart-button"
               >
                 <svg className="cart-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,19 +38,6 @@ const MainLayout = ({ children }) => {
             </div>
           </div>
         </nav>
-
-        <div className="categories-bar">
-          <div className="categories-content">
-            <div className="categories-list">
-              <button className="category-button">Todas</button>
-              <button className="category-button">Zapatillas Deportivas</button>
-              <button className="category-button">Zapatos Formales</button>
-              <button className="category-button">Botas</button>
-              <button className="category-button">Sandalias</button>
-              <button className="category-button">Zapatillas Urbanas</button>
-            </div>
-          </div>
-        </div>
       </header>
 
       <main>{children}</main>

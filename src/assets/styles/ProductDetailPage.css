@@ -1,0 +1,171 @@
+.product-detail-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.product-detail-container {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.product-detail-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .product-detail-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.product-detail-image {
+  width: 100%;
+}
+
+.product-detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.product-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-detail-brand {
+  color: #6b7280;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.product-detail-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #111827;
+  margin: 0;
+}
+
+.product-detail-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin: 1rem 0;
+}
+
+.product-detail-description {
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.product-actions {
+  margin-top: 2rem;
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  background-color: #2563eb;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.add-to-cart-btn:disabled:hover {
+  background-color: #9ca3af;
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 1rem;
+}
+
+.error-container button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.product-detail-page .size-selector {
+  margin: 2rem 0;
+}
+
+.product-detail-page .size-selector-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.product-detail-page .size-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+
+.product-detail-page .size-button {
+  padding: 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: white;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.product-detail-page .size-button:hover {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+
+.product-detail-page .size-button.selected {
+  border-color: #2563eb;
+  background-color: #2563eb;
+  color: white;
+}

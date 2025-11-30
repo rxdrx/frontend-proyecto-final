@@ -19,6 +19,12 @@
     }
   },
   "rules": {
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "indent": ["error", 2],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "no-unused-vars": "warn",
+    "no-console": "off",
+    "comma-dangle": ["error", "never"]
   }
 }
