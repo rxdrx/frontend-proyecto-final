@@ -40,6 +40,5 @@ npm run dev
 El servidor se ejecutará en `http://localhost:3000` (por defecto)
 
 ### URL de producción
-```
-(poner url de render luego de hacer el deploy)
-```
+
+<https://frontend-proyecto-final-5tgm.onrender.com>
