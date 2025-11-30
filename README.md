@@ -1,4 +1,4 @@
-# Backend - Plataforma online de venta de calzado
+# Frontend - Plataforma online de venta de calzado
 
 ## Descripción
 
