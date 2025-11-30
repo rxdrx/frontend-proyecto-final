@@ -23,7 +23,7 @@ const MainLayout = ({ children }) => {
             </div>
 
             <div className="nav-links">
-              <Link to="/auth" className="nav-link">
+              <Link to="/login" className="nav-link">
                 Iniciar Sesión
               </Link>
               <button 
