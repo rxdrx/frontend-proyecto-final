@@ -1,15 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
 import '../../assets/styles/ProductCard.css';
 
 const ProductCard = ({ producto }) => {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+
+  const handleQuickAdd = (e) => {
+    e.stopPropagation();
+    // Agregar con talle por defecto (40) para quick add
+    addToCart(producto, 40, 1);
+  };
+
+  const precioOriginal = producto.precio;
+  const descuento = producto.porcentaje_descuento || 0;
+  const precioFinal = precioOriginal - (precioOriginal * descuento / 100);
 
   return (
     <div 
       className="product-card"
       onClick={() => navigate(`/product/${producto.id_producto}`)}
     >
+      {descuento > 0 && (
+        <span className="discount-badge">-{descuento}%</span>
+      )}
+      
       <div className="product-image-container">
         <img
           src={producto.url_imagen || 'https://via.placeholder.com/300x300?text=Producto'}
@@ -33,15 +49,25 @@ const ProductCard = ({ producto }) => {
 
         <div className="product-footer">
           <div className="product-prices">
-            <p className="regular-price">
-              ${producto.precio.toLocaleString('es-AR')}
-            </p>
+            {descuento > 0 ? (
+              <>
+                <p className="current-price">
+                  ${precioFinal.toLocaleString('es-AR')}
+                </p>
+                <p className="original-price">
+                  ${precioOriginal.toLocaleString('es-AR')}
+                </p>
+              </>
+            ) : (
+              <p className="regular-price">
+                ${precioOriginal.toLocaleString('es-AR')}
+              </p>
+            )}
           </div>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
+            onClick={handleQuickAdd}
             className="add-to-cart-button"
+            title="Agregar al carrito (talle 40)"
           >
             Agregar
           </button>

@@ -1,84 +1,74 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import '../assets/styles/MainLayout.css';
 
 const MainLayout = ({ children }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { getCartItemsCount } = useCart();
+  const cartCount = getCartItemsCount();
+
+  const isActive = (path) => {
+    return location.pathname === path ? 'active' : '';
+  };
 
   return (
     <div className="main-layout">
       <header className="header">
-        <nav className="header-nav">
-          <div className="header-content">
-            <Link to="/" className="logo">
-              <div className="logo-text">Tienda de calzado</div>
-            </Link>
-
-            <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Buscar productos..."
-                className="search-input"
-              />
-            </div>
-
-            <div className="nav-links">
-              <Link to="/login" className="nav-link">
-                Iniciar Sesión
-              </Link>
-              <button 
-                onClick={() => navigate('/cart')}
-                className="cart-button"
-              >
-                <svg className="cart-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span className="cart-badge">4</span>
-              </button>
-            </div>
+        <div className="header-container">
+          <div className="logo" onClick={() => navigate('/')}>
+            <span className="logo-text">CalzaStore</span>
           </div>
-        </nav>
+
+          <nav className="nav">
+            <button 
+              className={`nav-link ${isActive('/')}`}
+              onClick={() => navigate('/')}
+            >
+              Inicio
+            </button>
+            <button 
+              className={`nav-link ${isActive('/cart')}`}
+              onClick={() => navigate('/cart')}
+            >
+              Carrito
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
+            </button>
+            <button 
+              className={`nav-link ${isActive('/login')}`}
+              onClick={() => navigate('/login')}
+            >
+              Iniciar Sesión
+            </button>
+          </nav>
+        </div>
       </header>
 
-      <main>{children}</main>
+      <main className="main-content">
+        {children}
+      </main>
 
       <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-grid">
-            <div>
-              <h4 className="footer-section-title">Tienda de calzado</h4>
-              <p className="footer-description">
-                Tu tienda online de calzado de confianza
-              </p>
-            </div>
-            <div>
-              <h4 className="footer-section-title">Atención al Cliente</h4>
-              <ul className="footer-list">
-                <li><a href="#" className="footer-link">Contacto</a></li>
-                <li><a href="#" className="footer-link">Preguntas Frecuentes</a></li>
-                <li><a href="#" className="footer-link">Cambios y Devoluciones</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="footer-section-title">Información</h4>
-              <ul className="footer-list">
-                <li><a href="#" className="footer-link">Sobre Nosotros</a></li>
-                <li><a href="#" className="footer-link">Términos y Condiciones</a></li>
-                <li><a href="#" className="footer-link">Política de Privacidad</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="footer-section-title">Síguenos</h4>
-              <ul className="footer-list">
-                <li><a href="#" className="footer-link">Facebook</a></li>
-                <li><a href="#" className="footer-link">Instagram</a></li>
-                <li><a href="#" className="footer-link">Twitter</a></li>
-              </ul>
-            </div>
+        <div className="footer-container">
+          <div className="footer-section">
+            <h3>Sobre Nosotros</h3>
+            <p>Tu tienda de confianza para calzado de calidad</p>
           </div>
-          <div className="footer-bottom">
-            <p>&copy; 2024 Tienda de Calzado - Grupo 10 UTN Bahía Blanca</p>
+          <div className="footer-section">
+            <h3>Contacto</h3>
+            <p>Email: contacto@calzastore.com</p>
+            <p>Tel: (123) 456-7890</p>
           </div>
+          <div className="footer-section">
+            <h3>Síguenos</h3>
+            <p>Facebook | Instagram | Twitter</p>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; 2026 CalzaStore - Grupo 10 UTN</p>
         </div>
       </footer>
     </div>
