@@ -6,9 +6,79 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+
+  // Validar email
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) return 'El correo electrónico es obligatorio';
+    if (!emailRegex.test(email)) return 'El formato del correo no es válido';
+    return '';
+  };
+
+  // Validar password
+  const validatePassword = (password) => {
+    if (!password) return 'La contraseña es obligatoria';
+    if (password.length < 6) return 'La contraseña debe tener al menos 6 caracteres';
+    return '';
+  };
+
+  // Validar todos los campos
+  const validateForm = () => {
+    const newErrors = {};
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+    if (emailError) newErrors.email = emailError;
+    if (passwordError) newErrors.password = passwordError;
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Manejar cambio de email
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (touched.email) {
+      const error = validateEmail(value);
+      setErrors(prev => ({ ...prev, email: error }));
+    }
+  };
+
+  // Manejar cambio de password
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    if (touched.password) {
+      const error = validatePassword(value);
+      setErrors(prev => ({ ...prev, password: error }));
+    }
+  };
+
+  // Manejar blur (cuando el usuario sale del campo)
+  const handleBlur = (field) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    if (field === 'email') {
+      const error = validateEmail(email);
+      setErrors(prev => ({ ...prev, email: error }));
+    } else if (field === 'password') {
+      const error = validatePassword(password);
+      setErrors(prev => ({ ...prev, password: error }));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setTouched({ email: true, password: true });
+    
+    if (validateForm()) {
+      // Aquí va la lógica de inicio de sesión
+      console.log('Formulario válido', { email, password });
+      // navigate('/profile'); // cuando tengamos la ruta lo descomentamos
+      alert('¡Inicio de sesión exitoso! (Simulado)');
+    }
   };
 
   return (
@@ -27,9 +97,14 @@ const LoginPage = () => {
                 type="email"
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
+                onBlur={() => handleBlur('email')}
                 placeholder="ejemplo@correo.com"
+                className={errors.email && touched.email ? 'input-error' : ''}
               />
+              {errors.email && touched.email && (
+                <span className="error-message">{errors.email}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -38,12 +113,17 @@ const LoginPage = () => {
                 type="password"
                 id="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handlePasswordChange}
+                onBlur={() => handleBlur('password')}
                 placeholder="••••••••"
+                className={errors.password && touched.password ? 'input-error' : ''}
               />
+              {errors.password && touched.password && (
+                <span className="error-message">{errors.password}</span>
+              )}
             </div>
 
-            <button type="button" className="login-button">
+            <button type="submit" className="login-button">
               Iniciar Sesión
             </button>
           </form>
