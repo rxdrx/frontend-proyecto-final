@@ -37,7 +37,7 @@ npm run dev
 
 ## Uso
 
-El servidor se ejecutará en `http://localhost:3000` (por defecto)
+El servidor se ejecutará en `http://localhost:5173` (por defecto)
 
 ### URL de producción
 
