@@ -28,7 +28,12 @@ cd frontend-proyecto-final
 npm install
 ```
 
-4. Iniciar el servidor:
+4. Configurar variables de entorno (esto crea un archivo .env con los datos de .env.example):
+```bash
+cp .env.example .env
+```
+
+5. Iniciar el servidor:
 
 **Modo desarrollo:**
 ```bash
