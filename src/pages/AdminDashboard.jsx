@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { orderService } from '../services/orderService';
 import { productService } from '../services/productService';
+import apiClient from '../services/api';
 import MainLayout from '../layouts/MainLayout';
 import '../assets/styles/AdminDashboard.css';
 
@@ -84,9 +85,8 @@ export default function AdminDashboard() {
 
   const loadPedidos = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/pedidos`)
-        .then(res => res.json());
-      setPedidos(response.data || []);
+      const response = await apiClient.get('/pedidos');
+      setPedidos(response.data.data || []);
     } catch (error) {
       console.error('Error al cargar pedidos:', error);
       setPedidos([]);
@@ -95,9 +95,8 @@ export default function AdminDashboard() {
 
   const loadUsuarios = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/usuarios`)
-        .then(res => res.json());
-      setUsuarios(response.data || []);
+      const response = await apiClient.get('/usuarios');
+      setUsuarios(response.data.data || []);
     } catch (error) {
       console.error('Error al cargar usuarios:', error);
       setUsuarios([]);
@@ -116,9 +115,8 @@ export default function AdminDashboard() {
 
   const loadCategorias = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/categorias`)
-        .then(res => res.json());
-      setCategorias(response.data || []);
+      const response = await apiClient.get('/categorias');
+      setCategorias(response.data.data || []);
     } catch (error) {
       console.error('Error al cargar categorías:', error);
       setCategorias([]);
@@ -167,9 +165,7 @@ export default function AdminDashboard() {
   const handleDeletePedido = async (id) => {
     if (window.confirm('¿Estás seguro de eliminar este pedido?')) {
       try {
-        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/pedidos/${id}`, {
-          method: 'DELETE'
-        });
+        await apiClient.delete(`/pedidos/${id}`);
         alert('Pedido eliminado exitosamente');
         loadPedidos();
       } catch (error) {
@@ -182,9 +178,7 @@ export default function AdminDashboard() {
   const handleDeleteUsuario = async (id) => {
     if (window.confirm('¿Estás seguro de eliminar este usuario?')) {
       try {
-        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/usuarios/${id}`, {
-          method: 'DELETE'
-        });
+        await apiClient.delete(`/usuarios/${id}`);
         alert('Usuario eliminado exitosamente');
         loadUsuarios();
       } catch (error) {
@@ -209,11 +203,7 @@ export default function AdminDashboard() {
 
   const handleUpdatePedidoEstado = async (id, nuevoEstado) => {
     try {
-      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/pedidos/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ estado: nuevoEstado })
-      });
+      await apiClient.put(`/pedidos/${id}`, { estado: nuevoEstado });
       alert('Estado actualizado exitosamente');
       loadPedidos();
     } catch (error) {
