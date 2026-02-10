@@ -162,24 +162,7 @@ const LoginPage = () => {
           </div>
         </div>
 
-        {/* Botones temporales fuera de la caja */}
-        <div className="temp-buttons">
-          <p className="temp-label">Accesos temporales (solo prueba):</p>
-          <button 
-            type="button" 
-            className="temp-button user-button"
-            onClick={() => navigate('/profile')}
-          >
-            Ir a Perfil Usuario
-          </button>
-          <button 
-            type="button" 
-            className="temp-button admin-button"
-            onClick={() => navigate('/admin')}
-          >
-            Ir a Dashboard Admin
-          </button>
-        </div>
+       
       </div>
     </div>
   );

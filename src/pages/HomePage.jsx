@@ -93,7 +93,10 @@ const HomePage = () => {
         <div className="main-content">
           <div className="content-layout">
             <aside className="sidebar">
-              <FilterSidebar onFilterChange={handleFilterChange} />
+              <FilterSidebar 
+                onFilterChange={handleFilterChange} 
+                currentFilters={filters}
+              />
             </aside>
 
             <div className="products-section">

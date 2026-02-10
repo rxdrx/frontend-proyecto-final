@@ -1,17 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
 import '../../assets/styles/ProductCard.css';
 
 const ProductCard = ({ producto }) => {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
-
-  const handleQuickAdd = (e) => {
-    e.stopPropagation();
-    // Agregar con talle por defecto (40) para quick add
-    addToCart(producto, 40, 1);
-  };
 
   const precioOriginal = producto.precio;
   const descuento = producto.porcentaje_descuento || 0;
@@ -64,13 +56,6 @@ const ProductCard = ({ producto }) => {
               </p>
             )}
           </div>
-          <button
-            onClick={handleQuickAdd}
-            className="add-to-cart-button"
-            title="Agregar al carrito (talle 40)"
-          >
-            Agregar
-          </button>
         </div>
       </div>
     </div>

@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useCategories } from '../../hooks/useCategories';
 import '../../assets/styles/FilterSidebar.css';
 
-const FilterSidebar = ({ onFilterChange }) => {
+const FilterSidebar = ({ onFilterChange, currentFilters = {} }) => {
   const { categorias, loading } = useCategories();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [priceMin, setPriceMin] = useState('');
   const [priceMax, setPriceMax] = useState('');
+
+  // Sincronizar el estado interno con los filtros actuales
+  useEffect(() => {
+    setSelectedCategory(currentFilters.categoria || '');
+    setPriceMin(currentFilters.precio_min || '');
+    setPriceMax(currentFilters.precio_max || '');
+  }, [currentFilters]);
 
   const handleApplyFilters = () => {
     const filters = {};
@@ -61,7 +68,7 @@ const FilterSidebar = ({ onFilterChange }) => {
                 <input
                   type="radio"
                   name="categoria"
-                  value={cat.id_categoria}
+                  value={cat.id_categoria.toString()}
                   checked={selectedCategory === cat.id_categoria.toString()}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 />
