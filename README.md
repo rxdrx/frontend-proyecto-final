@@ -43,7 +43,3 @@ npm run dev
 ## Uso
 
 El servidor se ejecutará en `http://localhost:5173` (por defecto)
-
-### URL de producción
-
-<https://frontend-proyecto-final-5tgm.onrender.com>
