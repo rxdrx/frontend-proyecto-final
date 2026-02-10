@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import '../assets/styles/MainLayout.css';
 
 const MainLayout = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { getCartItemsCount } = useCart();
+  const { user, isAuthenticated, logout, isAdmin } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const cartCount = getCartItemsCount();
 
   const isActive = (path) => {
     return location.pathname === path ? 'active' : '';
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
+    navigate('/');
+  };
+
+  const handleProfileClick = () => {
+    setShowUserMenu(false);
+    if (isAdmin) {
+      navigate('/admin');
+    } else {
+      navigate('/profile');
+    }
   };
 
   return (
@@ -37,12 +55,41 @@ const MainLayout = ({ children }) => {
                 <span className="cart-badge">{cartCount}</span>
               )}
             </button>
-            <button 
-              className={`nav-link ${isActive('/login')}`}
-              onClick={() => navigate('/login')}
-            >
-              Iniciar Sesión
-            </button>
+            
+            {isAuthenticated ? (
+              <div className="user-menu-container">
+                <button 
+                  className="nav-link user-button"
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                >
+                  {user?.nombre || 'Usuario'}
+                </button>
+                
+                {showUserMenu && (
+                  <div className="user-dropdown">
+                    <button 
+                      className="dropdown-item"
+                      onClick={handleProfileClick}
+                    >
+                      {isAdmin ? 'Panel Admin' : 'Mi Perfil'}
+                    </button>
+                    <button 
+                      className="dropdown-item logout"
+                      onClick={handleLogout}
+                    >
+                      Cerrar Sesión
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button 
+                className={`nav-link ${isActive('/login')}`}
+                onClick={() => navigate('/login')}
+              >
+                Iniciar Sesión
+              </button>
+            )}
           </nav>
         </div>
       </header>

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
 
@@ -11,33 +12,62 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
+  const { isAuthenticated, user } = useAuth();
+  
   const [cartItems, setCartItems] = useState(() => {
-    // Cargar carrito desde localStorage
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
+    // Solo cargar carrito si hay sesión activa
+    if (isAuthenticated && user) {
+      const savedCart = localStorage.getItem(`cart_${user.id}`);
+      return savedCart ? JSON.parse(savedCart) : [];
+    }
+    return [];
   });
 
-  // Guardar en localStorage cada vez que cambie el carrito
+  // Guardar en localStorage cada vez que cambie el carrito (solo si hay sesión)
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (isAuthenticated && user) {
+      localStorage.setItem(`cart_${user.id}`, JSON.stringify(cartItems));
+    }
+  }, [cartItems, isAuthenticated, user]);
+
+  // Limpiar carrito cuando se cierra sesión
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setCartItems([]);
+      // Limpiar todos los carritos del localStorage
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('cart_')) {
+          localStorage.removeItem(key);
+        }
+      });
+    } else if (user) {
+      // Cargar carrito del usuario cuando inicia sesión
+      const savedCart = localStorage.getItem(`cart_${user.id}`);
+      if (savedCart) {
+        setCartItems(JSON.parse(savedCart));
+      }
+    }
+  }, [isAuthenticated, user]);
 
   // Agregar producto al carrito
   const addToCart = (producto, talle, cantidad = 1) => {
+    if (!isAuthenticated) {
+      alert('Debes iniciar sesión para agregar productos al carrito');
+      return;
+    }
+
     setCartItems(prevItems => {
       const existingItem = prevItems.find(
         item => item.id_producto === producto.id_producto && item.talle === talle
       );
 
       if (existingItem) {
-        // Si ya existe, incrementar cantidad
         return prevItems.map(item =>
           item.id_producto === producto.id_producto && item.talle === talle
             ? { ...item, cantidad: item.cantidad + cantidad }
             : item
         );
       } else {
-        // Agregar nuevo item
         return [...prevItems, { ...producto, talle, cantidad }];
       }
     });
@@ -71,6 +101,9 @@ export const CartProvider = ({ children }) => {
   // Limpiar carrito
   const clearCart = () => {
     setCartItems([]);
+    if (user) {
+      localStorage.removeItem(`cart_${user.id}`);
+    }
   };
 
   // Calcular total del carrito
@@ -98,5 +131,9 @@ export const CartProvider = ({ children }) => {
     getCartItemsCount,
   };
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={value}>
+      {children}
+    </CartContext.Provider>
+  );
 };

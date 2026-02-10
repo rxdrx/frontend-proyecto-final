@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import '../assets/styles/LoginPage.css';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   // Validar email
   const validateEmail = (email) => {
@@ -41,6 +45,7 @@ const LoginPage = () => {
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
+    setLoginError(''); // Limpiar error de login
     if (touched.email) {
       const error = validateEmail(value);
       setErrors(prev => ({ ...prev, email: error }));
@@ -51,6 +56,7 @@ const LoginPage = () => {
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
+    setLoginError(''); // Limpiar error de login
     if (touched.password) {
       const error = validatePassword(value);
       setErrors(prev => ({ ...prev, password: error }));
@@ -69,15 +75,27 @@ const LoginPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setTouched({ email: true, password: true });
+    setLoginError('');
     
     if (validateForm()) {
-      // Aquí va la lógica de inicio de sesión
-      console.log('Formulario válido', { email, password });
-      // navigate('/profile'); // cuando tengamos la ruta lo descomentamos
-      alert('¡Inicio de sesión exitoso! (Simulado)');
+      setIsLoading(true);
+      try {
+        const result = await login(email, password);
+        
+        if (result.success) {
+          // Redirigir a home para todos los usuarios
+          navigate('/');
+        } else {
+          setLoginError(result.error);
+        }
+      } catch (error) {
+        setLoginError('Error al conectar con el servidor');
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -90,6 +108,12 @@ const LoginPage = () => {
             <p>Ingresa tus credenciales para continuar</p>
           </div>
 
+          {loginError && (
+            <div className="alert alert-error">
+              {loginError}
+            </div>
+          )}
+
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">Correo Electrónico</label>
@@ -101,6 +125,7 @@ const LoginPage = () => {
                 onBlur={() => handleBlur('email')}
                 placeholder="ejemplo@correo.com"
                 className={errors.email && touched.email ? 'input-error' : ''}
+                disabled={isLoading}
               />
               {errors.email && touched.email && (
                 <span className="error-message">{errors.email}</span>
@@ -117,14 +142,15 @@ const LoginPage = () => {
                 onBlur={() => handleBlur('password')}
                 placeholder="••••••••"
                 className={errors.password && touched.password ? 'input-error' : ''}
+                disabled={isLoading}
               />
               {errors.password && touched.password && (
                 <span className="error-message">{errors.password}</span>
               )}
             </div>
 
-            <button type="submit" className="login-button">
-              Iniciar Sesión
+            <button type="submit" className="login-button" disabled={isLoading}>
+              {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
             </button>
           </form>
 
