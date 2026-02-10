@@ -44,10 +44,6 @@ prototipos)
 - <span style="font-size: 16px;">**Frontend:** Construido con React, se encarga de la interfaz de usuario y la interacción con el usuario final.<br>
 - <span style="font-size: 16px;">**Backend:** Desarrollado con Node.js y Express, gestiona la lógica de negocio, la autenticación, el procesamiento de pedidos y la administración de usuarios y productos.<br>
 
-## Consideraciones finales y limitaciones
-- <span style="font-size: 16px;">Los prototipos son navegables, pero no funcionales.
-- <span style="font-size: 16px;">La lógica del backend no incluye validaciones complejas ya que para este prototipo se utilizan mocks.
-
 ## Integrantes del proyecto
 - <span style="font-size: 16px;">Bucci, Simón
 - <span style="font-size: 16px;">Sisko, Rodrigo
